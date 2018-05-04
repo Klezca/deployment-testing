@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: service-name
+service: shifra-api
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -67,10 +67,6 @@ functions:
       - http:
           path: hello
           method: get
-      # Ping every 5 minutes to avoid cold starts
-      - schedule:
-          rate: rate(5 minutes)
-          enabled: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
