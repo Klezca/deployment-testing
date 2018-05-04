@@ -8,14 +8,5 @@
       }
     ]
   ],
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ]
-  ]
+  "presets": [["flow"]]
 }

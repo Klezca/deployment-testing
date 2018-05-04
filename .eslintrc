@@ -1,19 +1,20 @@
 {
-  "extends": [
-    "airbnb",
-    "prettier"
-  ],
+  "extends": ["airbnb", "plugin:flowtype/recommended"],
+  "parser": "babel-eslint",
+  "plugins": ["flowtype"],
+  "rules": {
+    "linebreak-style": 0
+  },
   "globals": {
-    "afterAll",
-    "beforeAll",
-    "beforeEach",
-    "describe",
-    "expect",
-    "fit",
-    "it",
-    "jasmine",
-    "xit",
-    "jest"
+    "afterAll": true,
+    "beforeAll": true,
+    "beforeEach": true,
+    "describe": true,
+    "expect": true,
+    "fit": true,
+    "it": true,
+    "jasmine": true,
+    "xit": true,
+    "jest": true
   }
 }
-

@@ -1,1 +1,1 @@
-export * from "./lambda-response";
+export * from './lambda-response';

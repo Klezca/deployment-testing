@@ -1,9 +1,11 @@
-import { successResponse } from "./utils";
+// @flow
 
-const hello = (event, context, callback) => {
+import { successResponse } from './utils';
+
+const hello = (event: any, context: any, callback: any) => {
   const response = successResponse({
-    message: "This is a very important test!",
-    input: event
+    message: 'This is a very important test!',
+    input: event,
   });
 
   callback(null, response);
