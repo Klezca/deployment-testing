@@ -8,5 +8,8 @@
       }
     ]
   ],
-  "presets": [["flow"]]
+  "presets": [["flow"]],
+  "env": {
+    "jest": true
+  }
 }
