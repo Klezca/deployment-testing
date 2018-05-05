@@ -11,7 +11,7 @@
     "dispose:production": "sls remove --stage production -v",
     "dispose:stage": "sls remove --stage stage -v",
     "lint": "eslint ./src",
-    "precommit": "lint-staged && yarn test",
+    "precommit": "lint-staged && yarn flow check && yarn test",
     "serve": "serverless offline start",
     "test": "jest"
   },

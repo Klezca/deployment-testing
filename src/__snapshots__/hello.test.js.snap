@@ -6,7 +6,7 @@ exports[`hello executes as expected 1`] = `
     Array [
       null,
       Object {
-        "body": "{\\"message\\":\\"Go Serverless v1.0! Your function executed successfully!\\",\\"input\\":{}}",
+        "body": "{\\"message\\":\\"This is a very important test!\\",\\"input\\":{}}",
         "statusCode": 200,
       },
     ],
