@@ -4,9 +4,9 @@
   "main": "src/handler.js",
   "license": "MIT",
   "scripts": {
-    "deploy": "sls deploy --stage dev -v",
-    "deploy:production": "sls deploy --stage production -v",
-    "deploy:stage": "sls deploy --stage stage -v",
+    "deploy": "yarn precommit && sls deploy --stage dev -v",
+    "deploy:production": "yarn precommit && sls deploy --stage production -v",
+    "deploy:stage": "yarn precommit && sls deploy --stage stage -v",
     "dispose": "sls remove --stage dev -v",
     "dispose:production": "sls remove --stage production -v",
     "dispose:stage": "sls remove --stage stage -v",

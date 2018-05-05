@@ -1,16 +1,20 @@
 // @flow
 
 function lambdaResponse(json: any, statusCode: number, allowCORS: boolean = false) {
-  const response = allowCORS
-    ? {
-        statusCode,
-        body: JSON.stringify(json),
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      }
-    : {
-        statusCode,
-        body: JSON.stringify(json),
-      };
+  let response = {};
+
+  if (allowCORS) {
+    response = {
+      statusCode,
+      body: JSON.stringify(json),
+      headers: { 'Access-Control-Allow-Origin': '*' },
+    };
+  } else {
+    response = {
+      statusCode,
+      body: JSON.stringify(json),
+    };
+  }
 
   return response;
 }
