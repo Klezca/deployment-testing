@@ -1,71 +1,143 @@
-# shifra-api
-The API for serving and managing Shifra content.
+## Prerequisites
+Please make sure you have Nodejs installed. You can get it [here](https://nodejs.org/en/).
 
-# Shifra Serverless API
+This project also requires yarn. You can get Yarn from [here](https://yarnpkg.com/en/).
 
-Shifra API is built upon nodejs serverless functions with the serverless framework.
+## Install
 
-## Getting Started
+```bash
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+# If you don't already have the serverless cli installed, do that
+yarn global add serverless
 
-### Prerequisites (TODO)
+# Clone this repo
+git clone https://github.com/ShifraIO/shifra-api.git
 
-What things you need to install the software and how to install them
+# cd into project and set it up
+cd shifra-api
 
-install node...
-install serverless...
-install serverless offline...
-install jest...
-
-### Installing (TODO)
-
-... using serverless offline plugin
-
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+# Install dependencies
+yarn install
 ```
 
-And repeat
+## Development
 
+Creating and deploying a new function takes two steps, which you can see in action with this repo's default Hello World function (if you're already familiar with Serverless, you're probably familiar with these steps).
+
+#### 1. Add your function to `serverless.yml`
+
+In the functions section of [`./serverless.yml`](./serverless.yml), you have to add your new function like so:
+
+```yaml
+functions:
+  hello:
+    handler: src/hello.default
+    events:
+      - http:
+          path: hello
+          method: get
 ```
-until finished
+
+You can see here that we're setting up a function named `hello` with a handler at `src/hello.js` (the `.default` piece is just indicating that the function to run will be the default export from that file). The `http` event says that this function will run when an http event is triggered (on AWS, this happens via API Gateway).
+
+#### 2. Create your function
+
+The Hello World function can be found at [`./src/hello.js`](./src/hello.js). There you can see a basic function that's intended to work in conjunction with API Gateway (i.e., it is web-accessible). Like most Serverless functions, the `hello` function accepts an event, context, and callback. When your function is completed, you execute the callback with your response. (This is all basic Serverless; if you've never used it, be sure to read through [their docs](https://serverless.com/framework/docs/).
+
+------
+
+You can develop and test your lambda functions locally in a few different ways.
+
+### Live-reloading functions
+
+To run the hello function with the event data defined in [`fixtures/event.json`](fixtures/event.json) (with live reloading), run:
+
+```bash
+yarn watch:hello
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### API Gateway-like local dev server
 
-## Running the tests (TODO)
+To spin up a local dev server that will more closely match the API Gateway endpoint/experience:
 
-Explain how to run the automated tests for this system
-
-```
-Give an example
+```bash
+yarn serve
 ```
 
-## Deployment (TODO)
+### Test your functions with Jest
 
-... commands for manual
-... commands for travis
-... production vs development
+Jest is installed as the testrunner. To create a test, co-locate your test with the file it's testing
+as `<filename>.test.js` and then run/watch tests with:
 
-Add additional notes about how to deploy this on a live system
+```bash
+yarn test
+```
 
-## Built With
+### Adding new functions/files to Webpack
 
-* [Node.js](https://nodejs.org/en/) - JavaScript runtime.
-* [Serverless](https://serverless.com/) - Serverless function framework.
-* [Jest](https://facebook.github.io/jest/) - Testign Framework.
+When you add a new function to your serverless config, you don't need to also add it as a new entry
+for Webpack. The `serverless-webpack` plugin allows us to follow a simple convention in our `serverless.yml`
+file which is uses to automatically resolve your function handlers to the appropriate file:
 
-## License (TODO)
+```yaml
+functions:
+  hello:
+    handler: src/hello.default
+```
+As you can see, the path to the file with the function has to explicitly say where the handler
+file is. (If your function weren't the default export of that file, you'd do something like:
+`src/hello.namedExport` instead.)
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+### Flow & ESlint
+To ensure better quality code Flow types and eslint has been added to the project. 
+To learn more about flow and how it works visit [this link](https://flow.org/).
 
-## Acknowledgments (TODO)
+While developing yo can use the commands:
+```bash
+yarn flow check
+```
+and 
+```bash
+yarn lint
+```
+to check the project has no errors.
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+## Deploy
+
+Assuming you've already set up your default AWS credentials (or have set a different AWS profile via [the profile field](serverless.yml#L25)):
+
+```bash
+yarn deploy
+```
+
+`yarn deploy` will deploy to "dev" environment. You can deploy to `stage` or `production`
+with:
+
+```bash
+yarn deploy:stage
+
+# -- or --
+
+yarn deploy:production
+```
+
+After you've deployed, the output of the deploy script will give you the API endpoint
+for your deployed function(s), so you should be able to test the deployed API via that URL.
+
+If you wish to remove the deployed serverless code, you can use:
+```bash
+yarn dispose
+```
+This uses the same environment flags as deploy. If you wish to remove the development deployment, you can use `yarn dispose`, if you wish to remove the production instance use `yarn dispose:production`, etc.
+
+To ensure the quality of code, I have added a precommit check to the deployment commands. Please refer to the precommit section for more details.
+
+## Precommit
+To help ensure no broken code is commited to the repo, a precommit hook has been added to the project.
+
+When running a git commit command the precommit hook will run all lint, flow and test commands to ensure everything is 100%. If anything returns an error, it will be logged out to the terminal. You will need to resolve this errors before you can commit the code.
+
+The procommit hook is the equivalent of:
+```bash
+yarn lint && yarn flow check && yarn test
+``` 
