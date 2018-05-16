@@ -19,7 +19,7 @@ service: shifra-api
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   # If you want to change to a different AWS profile
   # from ~/.aws/credentials, you can do so here
   profile: default
@@ -61,29 +61,43 @@ custom:
 #    - exclude-me-dir/**
 
 functions:
+  # Test
   hello:
     handler: src/hello.default
     events:
       - http:
           path: hello
           method: get
+
+  # Routes
   getAllRoutes:
     handler: src/routes/handler.getAll
     events:
       - http:
           path: routes
           method: get
+
   getRoutesBySection:
     handler: src/routes/handler.getBySection
     events:
       - http:
           path: routes/{section}
           method: get
+
+  # Menu
   getMenu:
     handler: src/menu/handler.getAll
     events:
       - http:
           path: menu
+          method: get
+
+  # Content
+  getContent:
+    handler: src/content/handler.getContent
+    events:
+      - http:
+          path: content/{sectionName}/{contentName}
           method: get
 
 
