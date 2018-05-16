@@ -9,6 +9,7 @@ const menuItems = [
       ar: 'العنايه الصحيه في أستراليا',
     },
     url: '/healthcare-australia',
+    routesUrl: '/routes/healthcare-australia',
   },
   {
     icon: 'family-planing.png',
@@ -18,6 +19,7 @@ const menuItems = [
       ar: 'تنظيم الأسرة',
     },
     url: '/family-planning',
+    routesUrl: '/routes/family-planning',
   },
   {
     icon: 'pregnancy-newbord.png',
@@ -27,6 +29,7 @@ const menuItems = [
       ar: 'الحمل وحديثي الولادة',
     },
     url: '/pregnancy-newborn',
+    routesUrl: '/routes/pregnancy-newborn',
   },
   {
     icon: 'sexual-health.png',
@@ -36,6 +39,7 @@ const menuItems = [
       ar: 'الحياة الجنسية',
     },
     url: '/sexual-health',
+    routesUrl: '/routes/sexual-health',
   },
   {
     icon: 'family-health.png',
@@ -45,6 +49,7 @@ const menuItems = [
       ar: 'صحة المجتمع والعائلة',
     },
     url: '/community-health',
+    routesUrl: '/routes/hcommunity-health',
   },
   {
     icon: 'findahealthservice.png',
@@ -54,6 +59,7 @@ const menuItems = [
       ar: 'مواقع العيادة',
     },
     url: '/clinics',
+    routesUrl: '/routes/clinics',
   },
 ];
 

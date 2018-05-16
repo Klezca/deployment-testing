@@ -79,6 +79,12 @@ functions:
       - http:
           path: routes/{section}
           method: get
+  getMenu:
+    handler: src/menu/handler.getAll
+    events:
+      - http:
+          path: menu
+          method: get
 
 
 
