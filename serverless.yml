@@ -67,6 +67,20 @@ functions:
       - http:
           path: hello
           method: get
+  getAllRoutes:
+    handler: src/routes/handler.getAll
+    events:
+      - http:
+          path: routes
+          method: get
+  getRoutesBySection:
+    handler: src/routes/handler.getBySection
+    events:
+      - http:
+          path: routes/{section}
+          method: get
+
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
