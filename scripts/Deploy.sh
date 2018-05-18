@@ -4,9 +4,9 @@ serverless config credentials --provider aws --key $access_key_id --secret $secr
 
 
 
-if [[ $TRAVIS_BRANCH == 'master' ]]; then
+if [ $TRAVIS_BRANCH == 'master' ]; then
   npm run deploy:stage
   npm run deploy:production
-elif [[ $TRAVIS_BRANCH == 'develop' ]]; then
+elif [ $TRAVIS_BRANCH == 'develop' ]; then
   npm run deploy
 fi
