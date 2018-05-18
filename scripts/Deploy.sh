@@ -1,5 +1,7 @@
 #!/bin/bash
 
+serverless config credentials --provider aws --key $access_key_id --secret $secret_access_key
+
 if [[ $TRAVIS_TEST_RESULT == 1 ]]; then
   echo 'Skipping deploy due to broken build';
   exit 1;
