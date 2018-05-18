@@ -1,13 +1,12 @@
 language: node_js
 node_js:
-   - "carbon"
+   - carbon
 cache:
   yarn: true
   directories:
   - $HOME/.npm
 script:
   - npm test
-  - CI="" npm run build
 deploy:
     provider: script
     script: bash scripts/Deploy.sh
