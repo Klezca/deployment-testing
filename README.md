@@ -1,6 +1,7 @@
 ## Prerequisites
 Please make sure you have Nodejs installed. You can get it [here](https://nodejs.org/en/).
 
+
 This project also requires yarn. You can get Yarn from [here](https://yarnpkg.com/en/).
 
 ## Install
@@ -89,14 +90,14 @@ file is. (If your function weren't the default export of that file, you'd do som
 `src/hello.namedExport` instead.)
 
 ### Flow & ESlint
-To ensure better quality code Flow types and eslint has been added to the project. 
+To ensure better quality code Flow types and eslint has been added to the project.
 To learn more about flow and how it works visit [this link](https://flow.org/).
 
 While developing yo can use the commands:
 ```bash
 yarn flow check
 ```
-and 
+and
 ```bash
 yarn lint
 ```
@@ -140,4 +141,4 @@ When running a git commit command the precommit hook will run all lint, flow and
 The procommit hook is the equivalent of:
 ```bash
 yarn lint && yarn flow check && yarn test
-``` 
+```
