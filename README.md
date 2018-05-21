@@ -18,6 +18,7 @@ git clone https://github.com/ShifraIO/shifra-api.git
 # cd into project and set it up
 cd shifra-api
 
+
 # Install dependencies
 yarn install
 ```
