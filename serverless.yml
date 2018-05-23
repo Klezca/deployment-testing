@@ -130,12 +130,12 @@ functions:
 
 resources:
   Resources:
-    shifraTable:
+    testTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: shifraTable
+        TableName: testTables
         AttributeDefinitions:
-          - AttributeName: id #(S | N | B) for string, number, binary
+          - AttributeName: id # (S | N | B) for string, number, binary
             AttributeType: S
         KeySchema:
           - AttributeName: id
