@@ -127,21 +127,24 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-resources:
-  Resources:
-    usersTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: usersTable
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S # (S | N | B) for string, number, binary
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+  resources:
+    Resources:
+      shifraTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: shifraTable
+          AttributeDefinitions: # The names and types of all primary and index key attributes only
+            - AttributeName: id
+              AttributeType: S  # (S | N | B) for string, number, binary
+          KeySchema:
+            - AttributeName: id
+              KeyType: HASH
+#  Optional RANGE key type for HASH + RANGE tables
+#          - AttributeName: range_key_attribute_name
+#            KeyType: RANGE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 2
+            WriteCapacityUnits: 2
 
 plugins:
   - serverless-webpack
