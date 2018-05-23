@@ -99,6 +99,24 @@ functions:
           path: content/{sectionName}/{contentName}
           method: get
 
+  resources:
+    Resources:
+      usersTable:
+        Type: AWS::DynamoDB::Table
+        Properties:
+          TableName: usersTable
+          AttributeDefinitions: # The names and types of all primary and index key attributes only
+            - AttributeName: id
+              AttributeType: S  # (S | N | B) for string, number, binary
+          KeySchema:
+            - AttributeName: id
+              KeyType: HASH
+#  Optional RANGE key type for HASH + RANGE tables
+#          - AttributeName: range_key_attribute_name
+#            KeyType: RANGE
+          ProvisionedThroughput:
+            ReadCapacityUnits: 2
+            WriteCapacityUnits: 2
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -127,21 +145,6 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-resources:
-  Resources:
-    usersTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: usersTable
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S # (S | N | B) for string, number, binary
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
 
 plugins:
   - serverless-webpack
@@ -155,7 +158,5 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
-      seed: true
-
 
     # noStart: true
