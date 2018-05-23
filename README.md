@@ -3,7 +3,6 @@ Please make sure you have Nodejs installed. You can get it [here](https://nodejs
 
 This project also requires yarn. You can get Yarn from [here](https://yarnpkg.com/en/).
 
-
 ## Install
 
 ```bash
