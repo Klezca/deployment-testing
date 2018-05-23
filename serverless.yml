@@ -147,7 +147,10 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 2
           WriteCapacityUnits: 2
-          
+
 plugins:
   - serverless-webpack
   - serverless-offline
+
+custom:
+  webpackIncludeModules: true
