@@ -6,7 +6,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 exports.create = (event, context, callback) => {
   const params = {
     Item: {
-      id: uuid.v1(),
+      id: uuid.v4(),
       Name: event.name,
     },
     TableName: process.env.DYNAMODB_TABLE,
