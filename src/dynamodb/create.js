@@ -1,12 +1,12 @@
 const AWS = require('aws-sdk');
-const uuid = require('uuid');
+const uuidv4 = require('uuid/v4');
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 exports.create = (event, context, callback) => {
   const params = {
     Item: {
-      id: uuid.v4(),
+      id: uuidv4(),
       Name: event.name,
     },
     TableName: process.env.DYNAMODB_TABLE,
