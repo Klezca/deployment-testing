@@ -139,9 +139,6 @@ functions:
           KeySchema:
             - AttributeName: id
               KeyType: HASH
-#  Optional RANGE key type for HASH + RANGE tables
-#          - AttributeName: range_key_attribute_name
-#            KeyType: RANGE
           ProvisionedThroughput:
             ReadCapacityUnits: 2
             WriteCapacityUnits: 2
