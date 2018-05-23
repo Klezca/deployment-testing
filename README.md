@@ -3,6 +3,7 @@ Please make sure you have Nodejs installed. You can get it [here](https://nodejs
 
 This project also requires yarn. You can get Yarn from [here](https://yarnpkg.com/en/).
 
+
 ## Install
 
 ```bash
@@ -15,6 +16,7 @@ git clone https://github.com/ShifraIO/shifra-api.git
 
 # cd into project and set it up
 cd shifra-api
+
 
 # Install dependencies
 yarn install
