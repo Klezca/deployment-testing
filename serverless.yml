@@ -26,8 +26,9 @@ provider:
   # you can overwrite defaults here
   #  stage: dev
   #  region: us-east-1
-
-
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    # Table name will either be shifra-api-dev or shifra-api-prod
 
 
 
@@ -99,6 +100,19 @@ functions:
           path: content/{sectionName}/{contentName}
           method: get
 
+  create:
+    handler: src/dynamodb/create.create
+    events:
+      - http:
+          path: dynamodb/create
+          method: post
+
+  list:
+    handler: src/dynamodb/list.list
+    events:
+      - http:
+          path: dynamodb/list
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -130,14 +144,15 @@ functions:
 
 resources:
   Resources:
-    testTable:
+    Table:
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties:
-        TableName: testTables
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
         AttributeDefinitions:
-          - AttributeName: id # (S | N | B) for string, number, binary
+          - AttributeName: id
             AttributeType: S
+           # (S | N | B) for string, number, binary
         KeySchema:
           - AttributeName: id
             KeyType: HASH
