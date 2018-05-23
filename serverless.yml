@@ -135,11 +135,14 @@ resources:
       Properties:
         TableName: shifraTable
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: id #(S | N | B) for string, number, binary
             AttributeType: S
         KeySchema:
-          - AttributeName: email
+          - AttributeName: id
             KeyType: HASH
+#  Optional RANGE key type for HASH + RANGE tables
+#         - AttributeName: 'range_key_attribute_name'
+#           KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 2
           WriteCapacityUnits: 2
