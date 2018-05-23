@@ -133,7 +133,7 @@ functions:
         Type: AWS::DynamoDB::Table
         Properties:
           TableName: shifraTable
-          AttributeDefinitions: # The names and types of all primary and index key attributes only
+          AttributeDefinitions: 
             - AttributeName: id
               AttributeType: S  # (S | N | B) for string, number, binary
           KeySchema:
