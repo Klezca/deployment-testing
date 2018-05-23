@@ -132,6 +132,7 @@ resources:
   Resources:
     testTable:
       Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
       Properties:
         TableName: testTables
         AttributeDefinitions:
