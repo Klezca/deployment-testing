@@ -4,13 +4,16 @@ const uuidv1 = require('uuid/v1');
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 exports.create = (event, context, callback) => {
+  const data = JSON.parse(event.body);
+
   const params = {
     Item: {
       id: uuidv1(),
-      Name: event.name,
+      name: data.name,
     },
     TableName: process.env.DYNAMODB_TABLE,
   };
+
   documentClient.put(params, error => {
     // handle potential errors
     if (error) {
@@ -18,7 +21,7 @@ exports.create = (event, context, callback) => {
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: { 'Content-Type': 'text/plain' },
-        body: "Couldn't create the todo item.",
+        body: "Couldn't create the table record.",
       });
       return;
     }
