@@ -135,9 +135,10 @@ This uses the same environment flags as deploy. If you wish to remove the develo
 
 To ensure the quality of code, I have added a precommit check to the deployment commands. Please refer to the precommit section for more details.
 
-DynamoDB Documentation
+### Travis CI
+Travis CI will be used to automate deployment to the AWS platform using the serverless framework. The deployment configuration for Travis CI can be viewed in .travis.yml file and the configuration for serverless can be found in serverless.yml file.
 
-The expected result should be similar to:
+After deploying to travis ci, the expected result should be similar to:
 ```bash
 Service Information
 service: shifra-api
@@ -185,6 +186,23 @@ Example Result:
 ### HTTP methods creation
 Other methods used for interacting with dynamoDB can be created using the boilerplates provided in the example below:
 https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb
+
+### DynamoDB
+Depending the branch that is being deployed, the table being created will either be shifra-api-dev or shifra-api-prod. As of this version of serverless framework, there's a bug whereby redeploying an existing table will cause Travis CI built to fail. To avoid this, the "DeletePolicy:Retain" was used to skip redeployment of existing tables. These two tables will be retain even after "npm run dispose" or "npm run dispose:production". The tables can be manually deleted using the AWS console under the DynamoDB service.
+
+When you create a table, you specify how much provisioned throughput capacity you want to reserve for reads and writes. DynamoDB will reserve the necessary resources to meet your throughput needs while ensuring consistent, low-latency performance. You can change the provisioned throughput and increasing or decreasing capacity as needed.
+
+This is can be done via settings in the `serverless.yml`.
+
+```yaml
+  ProvisionedThroughput:
+    ReadCapacityUnits: 1
+    WriteCapacityUnits: 1
+```
+
+In case you expect a lot of traffic fluctuation, you can checkout this guide on how to auto scale DynamoDB [https://aws.amazon.com/blogs/aws/auto-scale-dynamodb-with-dynamic-dynamodb/](https://aws.amazon.com/blogs/aws/auto-scale-dynamodb-with-dynamic-dynamodb/)
+
+In the case where you are interested in learning how to use DynamoDB, you can startup a local DynamoDB using [serverless-dynamodb-local](https://www.npmjs.com/package/serverless-dynamodb-local)
 
 ## Precommit
 To help ensure no broken code is commited to the repo, a precommit hook has been added to the project.
