@@ -135,6 +135,57 @@ This uses the same environment flags as deploy. If you wish to remove the develo
 
 To ensure the quality of code, I have added a precommit check to the deployment commands. Please refer to the precommit section for more details.
 
+DynamoDB Documentation
+
+The expected result should be similar to:
+```bash
+Service Information
+service: shifra-api
+stage: production
+region: us-east-1
+stack: shifra-api-production
+api keys:
+  None
+endpoints:
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/hello
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/routes
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/routes/{section}
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/menu
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/content/{sectionName}/{contentName}
+  POST - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/dynamodb/create
+  GET - https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/dynamodb/list
+functions:
+  hello: shifra-api-production-hello
+  getAllRoutes: shifra-api-production-getAllRoutes
+  getRoutesBySection: shifra-api-production-getRoutesBySection
+  getMenu: shifra-api-production-getMenu
+  getContent: shifra-api-production-getContent
+  create: shifra-api-production-create
+  list: shifra-api-production-list
+```
+## Usage
+You can create or retrieve data from dynamoDB with the following commands:
+
+### Create a new record in the deployed table:
+```bash
+curl -X POST https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/dynamodb/create -d '{"name":"dog"}'
+```
+Example Result:
+```bash
+{"id":"4e136aa0-5f5e-11e8-a439-2d525c0aec5a","name":"dog"}
+```
+### List all records in table
+```bash
+curl https://0ium1mtxk0.execute-api.us-east-1.amazonaws.com/production/dynamodb/list
+```
+Example Result:
+```bash
+[{"id":"4e136aa0-5f5e-11e8-a439-2d525c0aec5a","name":"dog"}]
+```
+### HTTP methods creation
+Other methods used for interacting with dynamoDB can be created using the boilerplates provided in the example below:
+https://github.com/serverless/examples/tree/master/aws-node-rest-api-with-dynamodb
+
 ## Precommit
 To help ensure no broken code is commited to the repo, a precommit hook has been added to the project.
 
