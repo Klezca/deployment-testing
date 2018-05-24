@@ -1,17 +1,33 @@
 const AWS = require('aws-sdk');
-const uuid = require('uuid');
+const uuidv4 = require('uuid/v4');
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 exports.create = (event, context, callback) => {
   const params = {
     Item: {
-      id: uuid.v1(),
+      id: uuidv4(),
       Name: event.name,
     },
     TableName: process.env.DYNAMODB_TABLE,
   };
-  documentClient.put(params, (err, data) => {
-    callback(err, data);
+  documentClient.put(params, error => {
+    // handle potential errors
+    if (error) {
+      console.error(error);
+      callback(null, {
+        statusCode: error.statusCode || 501,
+        headers: { 'Content-Type': 'text/plain' },
+        body: "Couldn't create the todo item.",
+      });
+      return;
+    }
+
+    // create a response
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(params.Item),
+    };
+    callback(null, response);
   });
 };
